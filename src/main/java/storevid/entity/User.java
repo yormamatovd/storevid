@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import storevid.helper.Time;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -31,5 +32,11 @@ public class User {
 
     private String fullName;
 
+    @Column(nullable = false, updatable = false)
+    private Long startedTime;
 
+    @PrePersist
+    private void insert() {
+        this.startedTime = Time.getCurrentUTCSeconds();
+    }
 }
