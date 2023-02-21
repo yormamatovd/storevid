@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+telegram:
+  bot:
+    username: <bot_username>
+    token: <bot_token>
+    path: <bot_webhook_url>
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/<database_name>
+    username: <database_user>
+    password: <database_user_password>
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
