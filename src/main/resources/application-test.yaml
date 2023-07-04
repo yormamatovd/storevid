@@ -1,0 +1,24 @@
+server:
+  port: 9797
+
+telegram:
+  bot:
+    username: storevid_bot
+    token: 5995089727:AAGWaYTjXt-tdHeNAmDcogy7-YP3w8YM0yA
+    path: https://14a1-84-54-122-132.ngrok-free.app
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/storevid
+    username: postgres
+    password: 2014
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    open-in-view: false
+
+st-vid:
+  own: ${telegram.bot.path}/storevid
+  remote: http://192.168.100.69:7787
+  key: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyZW5lZ2RhIiwiaWF0IjoxNjg3OTcyNjAxLCJleHAiOjE3MTQ3NTY2MDF9._W5AFuyE31w_KKHlDA8EYmMtJf-aiAyR-7_GVE8Hbp1YvqgO571gCoX_As2uyxa9k49jqBaTVaZ4kKteuDrYJQ

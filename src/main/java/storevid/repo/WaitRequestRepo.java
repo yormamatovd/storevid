@@ -2,14 +2,13 @@ package storevid.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import storevid.entity.User;
+import storevid.entity.WaitRequest;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, UUID> {
+public interface WaitRequestRepo extends JpaRepository<WaitRequest,Long> {
 
-    Optional<User> findByChatId(Long chatId);
-
+    Optional<WaitRequest> findByRequestSSID(UUID requestSSID);
 }

@@ -1,0 +1,19 @@
+server:
+  port: 9797
+
+telegram:
+  bot:
+    username: storevid_bot
+    token: 5995089727:AAGWaYTjXt-tdHeNAmDcogy7-YP3w8YM0yA
+    path: <bot_webhook_url>
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/storevid
+    username: postgres
+    password: 2014
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false

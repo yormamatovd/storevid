@@ -1,15 +1,21 @@
 package storevid.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import storevid.config.Session;
+import storevid.service.UpdateService;
 
 @RestController
 @RequestMapping("/")
-public class UpdateController extends TelegramWebhookBot {
+@RequiredArgsConstructor
+public class BotController extends TelegramWebhookBot {
 
     @Value("${telegram.bot.username}")
     private String botUsername;
@@ -20,14 +26,17 @@ public class UpdateController extends TelegramWebhookBot {
     @Value("${telegram.bot.path}")
     private String botPath;
 
+    private final UpdateService updateService;
+
+    @PostMapping
     @Override
-    public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
-            String chatId = update.getMessage().getChatId()+"";
-            return new SendMessage(chatId, messageText);
+    public BotApiMethod<?> onWebhookUpdateReceived(@RequestBody Update update) {
+        if (update.hasMessage()||update.hasCallbackQuery()) {
+            Session.fetchData(update);
+            return updateService.updateFromTelegram();
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -43,10 +52,5 @@ public class UpdateController extends TelegramWebhookBot {
     @Override
     public String getBotPath() {
         return botPath;
-    }
-
-    @PostMapping
-    public BotApiMethod<?> updateReceiver(@RequestBody Update update) {
-        return this.onWebhookUpdateReceived(update);
     }
 }

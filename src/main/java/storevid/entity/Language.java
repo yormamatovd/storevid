@@ -5,20 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import storevid.entity.main.AbsMain;
+import storevid.enums.Lang;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "referal")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Referal extends AbsMain {
+public class Language extends AbsMain {
 
-    @ManyToOne
-    private User invitor;
+    @ManyToOne(optional = false)
+    private User user;
 
-    @ManyToOne
-    private User invited;
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Lang language;
 }
